@@ -17,10 +17,10 @@ Learn to use all the search tools at your disposal: Google, Dune search, Twitter
 
 1. calculate the total ETH transfer value by block in the last week using `ethereum.transactions` and `ethereum.traces`. Why are the values different?
     - **[ANSWER](https://dune.com/queries/907685)**
-    - **The traces value transfers is greater than the transactions value transfers because traces are the internal delegate calls.**
+    - **The traces value transfers is greater than the transactions value transfers because traces are the internal delegate calls. Consider an example where a user deposits 1 ETH to contract A. Contract A may then make an internal call to contract B transferring 1 ETH, then contract B may make an additional internal call to contract C transferring 1 ETH. This recursive nature of delegate calls makes the traces value larger than transaction value.**
     - bonus question: can you figure out what was the cause of the largest difference between tables where traces > txs value?
-        - **The largest cause I could find is that the ETH transfers are compounded the value transfer in traces compared to the transactions.**
-        - **[Referenced transaction](https://etherscan.io/tx/0xc6499defbd047824e175d8b65da5c16bf1843973e7611a5c5062f331abab20a7)**
+        - **The largest cause I could find is that the trace transfers compound the value transfer compared to the transactions.**
+        - **[Referenced block](https://etherscan.io/block/14953695)**
 2. look at an [example transaction](https://etherscan.io/tx/0xfa8aac1b4d50952f7cc711cd3959c05968ade2e538639c9555c5aa0d0fa6e76d) (of a token swap) using only `ethereum.transactions` and `ethereum.traces` tables. Don’t worry about understanding the protocol, just answer the following questions:
     - [diagram explaining every part of a tx on etherscan](https://github.com/andrewhong5297/web3-data-practice/blob/main/analyst/diagrams/tx_explained.jpg)
     - bonus question: how much gas was used in this swap?
