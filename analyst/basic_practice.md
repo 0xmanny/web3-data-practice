@@ -33,7 +33,7 @@ Learn to use all the search tools at your disposal: Google, Dune search, Twitter
     - bonus question: how do you remove double counts of proxy contracts? hint: lookup delegate calls (don’t confuse `type` and `call_type`!)
         - **I used distinct to remove double counting of proxy contracts, not sure if this is the correct method.**
     - bonus question: how many of these contracts are under the same namespace on Dune (i.e. uniswap, mirror, aave)?
-        - **30 of the 53 contracts are under the dune name space*
+        - **30 of the 53 contracts are under the dune name space**
 3. find all the new DEX pairs created in the first month the [Uniswap V2 factory was deployed](https://docs.uniswap.org/protocol/V2/reference/smart-contracts/factory).
     - **[ANSWER](https://dune.com/queries/908013)**
     - **There were 570 pairs created in the first month of UNIV2 launch**
