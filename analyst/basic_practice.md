@@ -17,19 +17,26 @@ Learn to use all the search tools at your disposal: Google, Dune search, Twitter
 
 1. calculate the total ETH transfer value by block in the last week using `ethereum.transactions` and `ethereum.traces`. Why are the values different?
     - **[ANSWER](https://dune.com/queries/907685)**
-    - **The traces value transfers is greater than the transactions value transfers because traces are the internal delegate calls. Consider an example where a user deposits 1 ETH to contract A. Contract A may then make an internal call to contract B transferring 1 ETH, then contract B may make an additional internal call to contract C transferring 1 ETH. This recursive nature of delegate calls makes the traces value larger than transaction value.**
+    - **The traces value transfers is greater than the transactions value transfers because traces are the internal static and delegate calls. Consider an example where a user deposits 1 ETH to contract A. Contract A may then make a delegate call to contract B transferring 1 ETH, then contract B may make an additional delegate call to contract C transferring 1 ETH. This recursive nature of delegate calls makes the traces value larger than transaction value.**
     - bonus question: can you figure out what was the cause of the largest difference between tables where traces > txs value?
         - **The largest cause I could find is that the trace transfers compound the value transfer compared to the transactions.**
         - **[Referenced block](https://etherscan.io/block/14953695)**
 2. look at an [example transaction](https://etherscan.io/tx/0xfa8aac1b4d50952f7cc711cd3959c05968ade2e538639c9555c5aa0d0fa6e76d) (of a token swap) using only `ethereum.transactions` and `ethereum.traces` tables. Don’t worry about understanding the protocol, just answer the following questions:
     - [diagram explaining every part of a tx on etherscan](https://github.com/andrewhong5297/web3-data-practice/blob/main/analyst/diagrams/tx_explained.jpg)
+    - **[ANSWER](https://dune.com/queries/907855)**
     - bonus question: how much gas was used in this swap?
+        - **The amount of gas used is `1138303` in transactions with a priority fee of `2500000000` and `17663321` gas used in traces**
         - hint on how gas breaks down
             - [reading resource](https://www.blocknative.com/blog/eip-1559-fees#:~:text=The%20New%20Terminology%20of%20EIP%2D1559%20Transactions&text=Instead%20of%20a%20singular%20Gas,is%20paid%20directly%20to%20miners.)
     - bonus question: how many contracts were involved?
+        - **53**
     - bonus question: how do you remove double counts of proxy contracts? hint: lookup delegate calls (don’t confuse `type` and `call_type`!)
+        - **I used distinct to remove double counting of proxy contracts, not sure if this is the correct method.**
     - bonus question: how many of these contracts are under the same namespace on Dune (i.e. uniswap, mirror, aave)?
+        - **30 of the 53 contracts are under the dune name space*
 3. find all the new DEX pairs created in the first month the [Uniswap V2 factory was deployed](https://docs.uniswap.org/protocol/V2/reference/smart-contracts/factory).
+    - **[ANSWER](https://dune.com/queries/908013)**
+    - **There were 570 pairs created in the first month of UNIV2 launch**
     - Bonus question: find each pair’s DEX volume, grouped by month.
 4. how can you figure out quickly which logs or functions to look at? Try and find the Uniswap V2 Pair contract for USDC/ETH. Run the analysis across `ethereum.logs`, `ethereum.transactions`, and `ethereum.traces`.
     - I have a list of utility queries out there somewhere with the answer to this one. Wonder if you can find them? 🙂
